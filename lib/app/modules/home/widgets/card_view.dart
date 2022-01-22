@@ -37,7 +37,7 @@ class CardView extends GetView<HomeController> {
                           border: OutlineInputBorder(),
                           labelText: "Title",
                         ),
-                        validator: (value) => controller.validateTitle(value!),
+                        validator: (value) => controller.validateTaskTitle(value!),
                         onSaved: (value) => controller.title.value = value!,
                       ),
                     ),

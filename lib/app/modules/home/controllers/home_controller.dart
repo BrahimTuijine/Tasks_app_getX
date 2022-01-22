@@ -12,6 +12,7 @@ class HomeController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final tasks = <Tasks>[].obs;
   final chipIndex = 0.obs;
+  final deleting = false.obs;
   final title = "".obs;
 
   @override
@@ -21,8 +22,8 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  String? validateTitle(String value) {
-    if (value.isEmpty || value.trim().isEmpty) {
+  String? validateTaskTitle(String value) {
+    if (value.isEmpty || value.trim().isEmpty || value.length <= 2) {
       return "please enter your task title";
     }
     return null;
@@ -37,4 +38,6 @@ class HomeController extends GetxController {
     tasks.add(task);
     return true;
   }
+
+  void changedeleting(bool value) => deleting.value = value;
 }
