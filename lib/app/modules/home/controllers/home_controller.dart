@@ -40,4 +40,6 @@ class HomeController extends GetxController {
   }
 
   void changedeleting(bool value) => deleting.value = value;
+
+  void deletetingTask(Tasks task) => tasks.remove(task);
 }
