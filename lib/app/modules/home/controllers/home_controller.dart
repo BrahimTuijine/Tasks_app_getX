@@ -14,6 +14,7 @@ class HomeController extends GetxController {
   final chipIndex = 0.obs;
   final deleting = false.obs;
   final title = "".obs;
+  final willAccept = false.obs;
 
   @override
   void onInit() {

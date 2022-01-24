@@ -15,9 +15,12 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: DragTarget<Tasks>(
+          onLeave: (_) => controller.willAccept.value = false,  
+          onWillAccept: (_) => controller.willAccept.value = true,
           onAccept: (task) {
+            controller.willAccept.value = false;
             controller.deletetingTask(task);
-            EasyLoading.showSuccess("delete tasks");
+            EasyLoading.showSuccess("task deleted");
           },
           builder: (_, __, ___) {
             return Obx(
