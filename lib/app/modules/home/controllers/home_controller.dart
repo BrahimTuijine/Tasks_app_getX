@@ -23,9 +23,9 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  String? validateTaskTitle(String value) {
+  String? validateTask(String value , String mess) {
     if (value.isEmpty || value.trim().isEmpty || value.length <= 2) {
-      return "please enter your task title";
+      return mess;
     }
     return null;
   }
@@ -43,4 +43,6 @@ class HomeController extends GetxController {
   void changedeleting(bool value) => deleting.value = value;
 
   void deletetingTask(Tasks task) => tasks.remove(task);
+
+
 }

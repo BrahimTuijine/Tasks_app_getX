@@ -15,14 +15,14 @@ void main() async {
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual,
     overlays: [SystemUiOverlay.bottom],
-  ); 
+  );
   runApp(
     GetMaterialApp(
       builder: EasyLoading.init(),
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fade,
       theme: appTheme(),
-      initialRoute: AppPages.INITIAL,
+      initialRoute: Routes.HOME,
       getPages: AppPages.routes,
     ),
   );

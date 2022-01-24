@@ -4,6 +4,7 @@ import 'package:todo_test/app/core/utils/extensions.dart';
 import 'package:get/get.dart';
 import 'package:todo_test/app/core/values/colors.dart';
 import 'package:todo_test/app/data/models/tasks.dart';
+import 'package:todo_test/app/modules/add_dialog/views/add_dialog_view.dart';
 import 'package:todo_test/app/modules/home/widgets/card_view.dart';
 import 'package:todo_test/app/modules/home/widgets/task_card_view.dart';
 import '../controllers/home_controller.dart';
@@ -13,9 +14,10 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final squareWidth = Get.width - 12.0.wp;
     return Scaffold(
         floatingActionButton: DragTarget<Tasks>(
-          onLeave: (_) => controller.willAccept.value = false,  
+          onLeave: (_) => controller.willAccept.value = false,
           onWillAccept: (_) => controller.willAccept.value = true,
           onAccept: (task) {
             controller.willAccept.value = false;
@@ -28,7 +30,10 @@ class HomeView extends GetView<HomeController> {
                 margin: EdgeInsets.only(
                     right: Get.width * .1 / 4, bottom: Get.width * .1 / 4),
                 child: FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () => Get.to(
+                    () => const AddDialogView(),
+                    transition: Transition.downToUp,
+                  ),
                   child: Icon(
                     controller.deleting.value ? Icons.delete : Icons.add,
                   ),
@@ -71,9 +76,24 @@ class HomeView extends GetView<HomeController> {
                                         controller.changedeleting(false),
                                     onDragEnd: (_) =>
                                         controller.changedeleting(false),
-                                    feedback: Opacity(
-                                      opacity: 0.8,
-                                      child: TaskCardView(tasks: element),
+                                    feedback: Stack(
+                                      children: [
+                                        Opacity(
+                                          opacity: 0.8,
+                                          child: TaskCardView(tasks: element),
+                                        ),
+                                        Obx(() => Visibility(
+                                              visible:
+                                                  controller.willAccept.value,
+                                              child: Container(
+                                                margin: EdgeInsets.all(3.0.wp),
+                                                width: squareWidth / 2,
+                                                height: squareWidth / 2,
+                                                color:
+                                                    Colors.red.withOpacity(0.5),
+                                              ),
+                                            )),
+                                      ],
                                     ),
                                     child: TaskCardView(tasks: element),
                                   ),
