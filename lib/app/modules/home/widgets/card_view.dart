@@ -76,7 +76,7 @@ class CardView extends GetView<HomeController> {
                           String color =
                               icons[controller.chipIndex.value].color!.toHex();
                           var task = Tasks(
-                            title: controller.title.value,
+                            title: controller.title.value.toUpperCase(),
                             icon: icon,
                             color: color,
                           );

@@ -15,6 +15,8 @@ class HomeController extends GetxController {
   final deleting = false.obs;
   final title = "".obs;
   final willAccept = false.obs;
+  final task = Rx<Tasks?>(null);
+  final taskText = "".obs;
 
   @override
   void onInit() {
@@ -23,7 +25,7 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  String? validateTask(String value , String mess) {
+  String? validateTask(String value, String mess) {
     if (value.isEmpty || value.trim().isEmpty || value.length <= 2) {
       return mess;
     }
@@ -44,5 +46,26 @@ class HomeController extends GetxController {
 
   void deletetingTask(Tasks task) => tasks.remove(task);
 
+  void changeTask(Tasks? selected) => task.value = selected;
 
+  updateTask(Tasks task, String text) {
+    var todos = task.todos ?? [];
+    if (containTodo(todos, text)) {
+      return false;
+    }
+    Map<String, dynamic> todo = {
+      "title": text,
+      "done": false,
+    };
+    todos.add(todo);
+    var newTask = task.copyWith(todos: todos);
+    int oldx = tasks.indexOf(task);
+    tasks[oldx] = newTask;
+    tasks.refresh();
+    return true;
+  }
+
+  bool containTodo(List todos, String titles) {
+    return todos.any((element) => element["title"] == titles);
+  }
 }
